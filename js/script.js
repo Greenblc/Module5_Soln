@@ -280,6 +280,34 @@ function insertItemPrice(html,
 }
 
 
+function encryptText() {
+  var plaintext = document.getElementById('plaintext').value;
+  var key = parseInt(document.getElementById('key').value);
+  if (isNaN(key)) {
+    alert('Please enter a valid number for the key.');
+    return;
+  }
+
+  var ciphertext = caesarCipher(plaintext, key);
+  document.getElementById('ciphertext').value = ciphertext;
+}
+
+function caesarCipher(str, shift) {
+  const upperAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const lowerAlphabet = 'abcdefghijklmnopqrstuvwxyz';
+
+  return str.split('').map(char => {
+    if (upperAlphabet.includes(char)) {
+      return upperAlphabet[(upperAlphabet.indexOf(char) + shift) % 26];
+    } else if (lowerAlphabet.includes(char)) {
+      return lowerAlphabet[(lowerAlphabet.indexOf(char) + shift) % 26];
+    } else {
+      return char;
+    }
+  }).join('');
+}
+
+  
 // Appends portion name in parens if it exists
 function insertItemPortionName(html,
                                portionPropName,
