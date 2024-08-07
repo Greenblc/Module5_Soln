@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Encrypt - Cipher Tools</title>
+    <title>Encrypt - CipherTools</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
   </head>
@@ -14,7 +14,7 @@
         <div class="container">
           <div class="navbar-header">
             <a href="index.html" class="navbar-brand">
-              <h1>Cipher Tools</h1>
+              <h1>Cj's Cipher Tools</h1>
             </a>
           </div>
         </div>
@@ -42,7 +42,7 @@
 
     <footer class="panel-footer">
       <div class="container text-center">
-        <p>&copy; 2024 Cipher Tools</p>
+        <p>&copy; Cj's attempt at a website</p>
       </div>
     </footer>
 
@@ -60,15 +60,14 @@
         var ciphertext = caesarCipher(plaintext, key);
         document.getElementById('ciphertext').value = ciphertext;
       }
-
-      function caesarCipher(str, shift) {
-        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-        const shiftedAlphabet = alphabet.slice(shift % 26) + alphabet.slice(0, shift % 26) +
-                                alphabet.slice(26 + (shift % 26)) + alphabet.slice(26, 26 + (shift % 26));
-        
         return str.split('').map(char => {
-          const index = alphabet.indexOf(char);
-          return index !== -1 ? shiftedAlphabet[index] : char;
+          if (upperAlphabet.includes(char)) {
+            return upperAlphabet[(upperAlphabet.indexOf(char) + shift) % 26];
+          } else if (lowerAlphabet.includes(char)) {
+            return lowerAlphabet[(lowerAlphabet.indexOf(char) + shift) % 26];
+          } else {
+            return char;
+          }
         }).join('');
       }
     </script>
