@@ -32,7 +32,11 @@
           <label for="key">Key:</label>
           <input type="text" id="key" class="form-control">
         </div>
-        <button type="button" class="btn btn-primary">Encrypt</button>
+        <button type="button" class="btn btn-primary" onclick="encryptText()">Encrypt</button>
+        <div class="form-group">
+          <label for="ciphertext">Ciphertext:</label>
+          <textarea id="ciphertext" class="form-control" rows="5" readonly></textarea>
+        </div>
       </form>
     </div>
 
@@ -44,5 +48,29 @@
 
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script>
+      function encryptText() {
+        var plaintext = document.getElementById('plaintext').value;
+        var key = parseInt(document.getElementById('key').value);
+        if (isNaN(key)) {
+          alert('Please enter a valid number for the key.');
+          return;
+        }
+
+        var ciphertext = caesarCipher(plaintext, key);
+        document.getElementById('ciphertext').value = ciphertext;
+      }
+
+      function caesarCipher(str, shift) {
+        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        const shiftedAlphabet = alphabet.slice(shift % 26) + alphabet.slice(0, shift % 26) +
+                                alphabet.slice(26 + (shift % 26)) + alphabet.slice(26, 26 + (shift % 26));
+        
+        return str.split('').map(char => {
+          const index = alphabet.indexOf(char);
+          return index !== -1 ? shiftedAlphabet[index] : char;
+        }).join('');
+      }
+    </script>
   </body>
 </html>
